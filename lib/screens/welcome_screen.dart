@@ -8,7 +8,52 @@ class WelcomeScreen extends StatefulWidget {
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
-class _WelcomeScreenState extends State<WelcomeScreen> {
+/* The with keyword indicates the use of a "mixin"
+*  A mixin refers to the ability to add the capabilities of another class
+*  or classes to your own class, without inheriting from those classes.
+*  The methods of those classes can now be called on your class, and the code within
+*  those classes will execute. Dart does not have multiple inheritance, but the use
+*  of "mixin" allows you to fold in other classes to achieve code reuse while avoiding
+*  the issues that multiple inheritance would cause.*/
+
+class _WelcomeScreenState extends State<WelcomeScreen>
+    with SingleTickerProviderStateMixin {
+  AnimationController animationController;
+  Animation animation;
+  @override
+  void initState() {
+    super.initState();
+    animationController = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 1),
+    );
+
+    animation =
+        CurvedAnimation(parent: animationController, curve: Curves.decelerate);
+
+    animationController.forward();
+    animation.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        animationController.reverse(from: 1.0);
+      } else if (status == AnimationStatus.dismissed) {
+        animationController.forward();
+      }
+      //print(status);
+    });
+    //reverse animation
+    //animationController.reverse(from: 1.0);
+    animationController.addListener(() {
+      setState(() {});
+      print(animationController.value);
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    animationController.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,11 +70,12 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   tag: 'logo',
                   child: Container(
                     child: Image.asset('images/logo.png'),
-                    height: 60.0,
+                    height: animation.value * 80,
                   ),
                 ),
                 Text(
                   'Flash Chat',
+                  //'${animationController.value.toInt()}%',
                   style: TextStyle(
                     fontSize: 45.0,
                     fontWeight: FontWeight.w900,
