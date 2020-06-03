@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutterchatapp/components/rounded_button.dart';
 import 'package:flutterchatapp/screens/login_screen.dart';
 import 'package:flutterchatapp/screens/registration_screen.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static const String id = 'welcome_screen';
@@ -27,17 +29,6 @@ class _WelcomeScreenState extends State<WelcomeScreen>
       vsync: this,
       duration: Duration(seconds: 2),
     );
-    /*animation =
-        CurvedAnimation(parent: animationController, curve: Curves.decelerate);
-
-    animation.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        animationController.reverse(from: 1.0);
-      } else if (status == AnimationStatus.dismissed) {
-        animationController.forward();
-      }
-      //print(status);
-    });*/
     // Tween
     animation = ColorTween(begin: Colors.blueGrey, end: Colors.white)
         .animate(animationController);
@@ -47,7 +38,6 @@ class _WelcomeScreenState extends State<WelcomeScreen>
     //animationController.reverse(from: 1.0);
     animationController.addListener(() {
       setState(() {});
-      print(animationController.value);
     });
   }
 
@@ -77,57 +67,36 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                     height: 60,
                   ),
                 ),
-                Text(
-                  'Flash Chat',
+                TypewriterAnimatedTextKit(
+                  speed: Duration(milliseconds: 500),
+                  text: ['Flash Chat'],
                   //'${animationController.value.toInt()}%',
-                  style: TextStyle(
+                  textStyle: TextStyle(
                     fontSize: 45.0,
                     fontWeight: FontWeight.w900,
                   ),
+                  textAlign: TextAlign.start,
                 ),
               ],
             ),
             SizedBox(
               height: 48.0,
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
-              child: Material(
-                elevation: 5.0,
-                color: Colors.lightBlueAccent,
-                borderRadius: BorderRadius.circular(30.0),
-                child: MaterialButton(
-                  onPressed: () {
-                    //Go to login screen.
-                    Navigator.pushNamed(context, LoginScreen.id);
-                  },
-                  minWidth: 200.0,
-                  height: 42.0,
-                  child: Text(
-                    'Log In',
-                  ),
-                ),
-              ),
+            ButtonWidget(
+              title: 'Log In',
+              color: Colors.lightBlueAccent,
+              onPressed: () {
+                //Go to login screen.
+                Navigator.pushNamed(context, LoginScreen.id);
+              },
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 16.0),
-              child: Material(
+            ButtonWidget(
+                title: 'Register',
                 color: Colors.blueAccent,
-                borderRadius: BorderRadius.circular(30.0),
-                elevation: 5.0,
-                child: MaterialButton(
-                  onPressed: () {
-                    //Go to registration screen.
-                    Navigator.pushNamed(context, RegistrationScreen.id);
-                  },
-                  minWidth: 200.0,
-                  height: 42.0,
-                  child: Text(
-                    'Register',
-                  ),
-                ),
-              ),
-            ),
+                onPressed: () {
+                  //Go to registration screen.
+                  Navigator.pushNamed(context, RegistrationScreen.id);
+                }),
           ],
         ),
       ),
