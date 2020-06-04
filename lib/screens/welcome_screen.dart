@@ -69,10 +69,10 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                 ),
                 TypewriterAnimatedTextKit(
                   speed: Duration(milliseconds: 500),
-                  text: ['Flash Chat'],
+                  text: ['Jabber Chat'],
                   //'${animationController.value.toInt()}%',
                   textStyle: TextStyle(
-                    fontSize: 45.0,
+                    fontSize: 40.0,
                     fontWeight: FontWeight.w900,
                   ),
                   textAlign: TextAlign.start,

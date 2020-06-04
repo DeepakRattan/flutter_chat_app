@@ -4,9 +4,9 @@ import 'package:flutterchatapp/screens/login_screen.dart';
 import 'package:flutterchatapp/screens/registration_screen.dart';
 import 'screens/welcome_screen.dart';
 
-void main() => runApp(FlashChat());
+void main() => runApp(JabberChat());
 
-class FlashChat extends StatelessWidget {
+class JabberChat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

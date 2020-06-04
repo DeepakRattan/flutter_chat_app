@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "340867304723",
+    "firebase_url": "https://jabber-chat-a7e43.firebaseio.com",
+    "project_id": "jabber-chat-a7e43",
+    "storage_bucket": "jabber-chat-a7e43.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:340867304723:android:df3771dad22b1f0228dee6",
+        "android_client_info": {
+          "package_name": "com.deepak_rattan.jabber_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "340867304723-iieu8gt38mcni0bvlikafcd9qe83u71d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8bierUB2yzOYcpd7kS_cYcxi4HUrbT2M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "340867304723-iieu8gt38mcni0bvlikafcd9qe83u71d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
