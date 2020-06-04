@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+/* The welcome screen, the login screen and the registration screen all have
+the same style of button. The code for this button is given below */
 
-class ButtonWidget extends StatelessWidget {
+class RoundedButton extends StatelessWidget {
   final Color color;
   final String title;
   final Function onPressed;
-  ButtonWidget(
+  RoundedButton(
       {@required this.title, @required this.color, @required this.onPressed});
 
   @override
