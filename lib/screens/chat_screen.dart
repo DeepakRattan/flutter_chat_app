@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -10,8 +11,11 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
+  final _fireStore = Firestore.instance;
   final _auth = FirebaseAuth.instance;
+  final TextEditingController textEditingController = TextEditingController();
   FirebaseUser loggedInUser;
+  String messageText;
 
   @override
   void initState() {
@@ -60,8 +64,10 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: <Widget>[
                   Expanded(
                     child: TextField(
+                      controller: textEditingController,
                       onChanged: (value) {
                         //Do something with the user input.
+                        messageText = value;
                       },
                       decoration: kMessageTextFieldDecoration,
                     ),
@@ -69,6 +75,8 @@ class _ChatScreenState extends State<ChatScreen> {
                   FlatButton(
                     onPressed: () {
                       //Implement send functionality.
+                      saveData();
+                      textEditingController.clear();
                     },
                     child: Text(
                       'Send',
@@ -82,5 +90,15 @@ class _ChatScreenState extends State<ChatScreen> {
         ),
       ),
     );
+  }
+
+  // Saving message with logged in user's email on Cloud FireStore
+  void saveData() async {
+    await _fireStore.collection('messages').add({
+      'text': messageText,
+      'sender': loggedInUser.email,
+    }).then((value) {
+      print(value.documentID);
+    });
   }
 }
