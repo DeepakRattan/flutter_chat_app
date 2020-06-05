@@ -15,4 +15,4 @@
 
 7.Learn to use ListViews to build scrolling views.
 
-8. Using Firebase Cloud Firestore to store and retrieve data.
+8.Using Firebase Cloud Firestore to store and retrieve data.
