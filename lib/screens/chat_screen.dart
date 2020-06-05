@@ -21,6 +21,8 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     super.initState();
     getCurrentUser();
+    //getMessages();
+    getMessageStream();
   }
 
   void getCurrentUser() async {
@@ -75,8 +77,9 @@ class _ChatScreenState extends State<ChatScreen> {
                   FlatButton(
                     onPressed: () {
                       //Implement send functionality.
-                      saveData();
+                      saveMessages();
                       textEditingController.clear();
+                      getMessages();
                     },
                     child: Text(
                       'Send',
@@ -93,12 +96,37 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   // Saving message with logged in user's email on Cloud FireStore
-  void saveData() async {
+  void saveMessages() async {
     await _fireStore.collection('messages').add({
       'text': messageText,
       'sender': loggedInUser.email,
     }).then((value) {
       print(value.documentID);
     });
+  }
+
+  void getMessages() async {
+    final messages = await _fireStore.collection('messages').getDocuments();
+    for (var message in messages.documents) {
+      print(message.data);
+    }
+  }
+  /* Using the following code ,our app will listen to the changes in database which uses
+     the concept of dart streams.
+     This is like we have subscribed to the given collection named messages.
+     Whenever new data is entered in the database , it will be notified in the app.*/
+
+  /* How messages are coming?
+  * We are subscribing to a stream of messages and that code lives inside the snapshots method
+  * As more data get added to the collection ,then the data will come through our message
+  * stream
+  */
+
+  void getMessageStream() async {
+    await for (var snapshot in _fireStore.collection('messages').snapshots()) {
+      for (var message in snapshot.documents) {
+        print(message.data);
+      }
+    }
   }
 }
